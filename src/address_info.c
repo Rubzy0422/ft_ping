@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:06:58 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/07 09:01:08 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/07 09:09:14 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char *dns_lookup(const char *host)
 	return ft_strdup(addrstr);
 }
 
-// Resolves the reverse lookup of the hostname 
 char* reverse_dns_lookup(char *hostname, char *s_ipv4_addr) 
 { 
 	struct sockaddr_in ip4addr;
