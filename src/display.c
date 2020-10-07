@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:07:06 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/06 17:45:36 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/07 08:51:46 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		stats(t_env *env)
 	(double)((env->icmp_sent - env->icmp_recieved) / env->icmp_sent) * 100,
 	ft_timediff(env->time.program_start, env->time.program_end));
 	free(env->ip_addr);
+	free(env->reverse_hostname);
 }
 
 void	display_help(void)

@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 00:37:59 by alex              #+#    #+#             */
-/*   Updated: 2020/10/06 22:19:50 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/07 08:48:55 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_type(struct icmphdr *hdr, t_env *env)
 	if (hdr->type == ICMP_TIME_EXCEEDED)
 	{
 		printf("64 bytes from %s: icmp_seq=%ld Time to live exceeded\n",
-			env->ip_addr, env->icmp_seqNum);
+			env->reverse_hostname, env->icmp_seqNum);
 		return;
 	}
 	else
@@ -51,6 +51,6 @@ void	check_type(struct icmphdr *hdr, t_env *env)
 		}
 	}
 	printf("%d bytes from %s (%s): icmp_seq=%ld ttl=%d time=%.3f\n", 64,
-		env->hostname , env->ip_addr, env->icmp_seqNum, env->ttl,
+		env->reverse_hostname , env->ip_addr, env->icmp_seqNum, env->ttl,
 		ft_timediff(env->time.echo_start, env->time.echo_end));
 }

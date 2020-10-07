@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:06:58 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/06 22:22:53 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/07 09:01:08 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,29 @@ char *dns_lookup(const char *host)
 		ptr = &((struct sockaddr_in *) res->ai_addr)->sin_addr;
 	 inet_ntop (res->ai_family, ptr, addrstr, NI_MAXHOST);
 	g_env.addr_con = res->ai_addr;
+	ft_freeaddrinfo(res);
 	return ft_strdup(addrstr);
 }
 
 // Resolves the reverse lookup of the hostname 
-char* reverse_dns_lookup(char *ip_addr) 
+char* reverse_dns_lookup(char *hostname, char *s_ipv4_addr) 
 { 
 	struct sockaddr_in ip4addr;
-	
-	memset(&ip4addr, 0, sizeof(struct sockaddr_in));
+
+	ft_bzero(&ip4addr, sizeof(struct sockaddr_in));
 	ip4addr.sin_family = AF_INET;
 	ip4addr.sin_port = htons(0);
-	inet_pton(AF_INET, ip_addr, &ip4addr.sin_addr);
-	char host[NI_MAXHOST], service[NI_MAXSERV];
+	inet_pton(AF_INET, s_ipv4_addr, &ip4addr.sin_addr);
+
+	char host[NI_MAXHOST];
+	char service[NI_MAXSERV];
 	int s = getnameinfo((struct sockaddr *) &ip4addr, sizeof(struct sockaddr_in), host, NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV);
 	if (s == 0)
-		return strdup(host);
-	return NULL;
+		return ft_strdup(host);
+	else {
+		if (g_env.verbose)
+			printf("Failed reverse DNS\n");
+		return hostname;
+	}
+	
 }

@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 22:32:54 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/06 22:32:56 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/07 08:47:59 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,12 @@ int main(int argc, char *argv[])
 	start_env(argc, argv);
 	g_env.hostname = parse_args(argc, argv, &g_env);
 	g_env.ip_addr = dns_lookup(g_env.hostname);
-	g_env.reverse_hostname = reverse_dns_lookup(g_env.hostname);
+	g_env.reverse_hostname = reverse_dns_lookup(g_env.hostname, g_env.ip_addr);
 	
 	if(g_env.ip_addr == NULL) 
 		return 0;
 	printf("PING %s (%s) %d(%d) bytes of data.\n", g_env.hostname,
-	g_env.reverse_hostname? g_env.reverse_hostname:g_env.ip_addr, 
-	56, 84);
+	g_env.ip_addr, 56, 84);
 	signal(SIGINT, InterruptHandler);
 	g_env.sockfd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
 	if(g_env.sockfd >= 0)

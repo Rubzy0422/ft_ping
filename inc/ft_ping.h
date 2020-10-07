@@ -69,7 +69,7 @@ t_env 				g_env;
 void				start_env(int argc, char **argv);
 uid_t				getuid(void);
 char				*dns_lookup(const char *host);
-char				*reverse_dns_lookup(char *ip_addr);
+char* 				reverse_dns_lookup(char *hostname, char *s_ipv4_addr);
 void				send_ping(int ping_sockfd, struct sockaddr_in *ping_addr, 
 					char *ping_dom, char *ping_ip, char *rev_host);
 void				intHandler(int dummy);
