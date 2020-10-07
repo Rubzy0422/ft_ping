@@ -6,7 +6,7 @@
 #    By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/27 17:28:44 by stenner           #+#    #+#              #
-#    Updated: 2020/10/06 21:02:02 by rcoetzer         ###   ########.fr        #
+#    Updated: 2020/10/07 16:26:09 by rcoetzer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRC_NAME =	ft_ping.c \
 			packages.c\
 			time.c\
 			display.c\
-			ft_freeaddrinfo.c\
 			check.c
 
 LIBFT_PATH = ./libft/

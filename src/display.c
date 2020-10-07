@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:07:06 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/07 08:51:46 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:40:29 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void		stats(t_env *env)
 {
+	double num;
+
+	num = ((env->icmp_seqNum - env->icmp_recieved) * 100.00 / env->icmp_seqNum);
 	gettimeofday(&env->time.program_end, NULL);
 	printf("\n--- %s ping statistics ---\n",env->hostname);
-	printf("%lu packets transmitted, %lu received,",
+	printf("%u packets transmitted, %u received, ",
 	env->icmp_seqNum, env->icmp_recieved);
-	printf("%.3f%% packet loss, time %f ms\n",
-	(double)((env->icmp_sent - env->icmp_recieved) / env->icmp_sent) * 100,
+	printf("%.2f%% packet loss, time %f ms\n", num, 
 	ft_timediff(env->time.program_start, env->time.program_end));
 	free(env->ip_addr);
 	free(env->reverse_hostname);
@@ -33,6 +35,5 @@ void	display_help(void)
 	printf("\t<destination>\tdns name or ip address\n");
 	printf("\t-h\t\tprint help and exit\n");
 	printf("\t-v\t\tverbose output\n");
-	printf("\t-V\t\tprint version and exit\n");
 	exit(0);
 }

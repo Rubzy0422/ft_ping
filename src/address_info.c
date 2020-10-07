@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:06:58 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/07 09:09:14 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:49:09 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void *handelerrcode(int errcode, const char *hostname)
 {
 	if (errcode == -2)
-	printf("%s:%s: Name or service not known\n", PROG_NAME, hostname);
+	printf("%s:%s: Name or service not known\n", P_NAME, hostname);
 	// -3 Temporary failure in name resolution
 	else if (errcode == -3)
-	printf("%s:%s: Temporary failure in name resolution\n", PROG_NAME, hostname); 
-	return (NULL);
+	printf("%s:%s: Temporary failure in name resolution\n", P_NAME, hostname); 
+	exit(-1);
 }
 
 char *dns_lookup(const char *host)
@@ -43,7 +43,6 @@ char *dns_lookup(const char *host)
 		ptr = &((struct sockaddr_in *) res->ai_addr)->sin_addr;
 	 inet_ntop (res->ai_family, ptr, addrstr, NI_MAXHOST);
 	g_env.addr_con = res->ai_addr;
-	ft_freeaddrinfo(res);
 	return ft_strdup(addrstr);
 }
 
@@ -58,7 +57,8 @@ char* reverse_dns_lookup(char *hostname, char *s_ipv4_addr)
 
 	char host[NI_MAXHOST];
 	char service[NI_MAXSERV];
-	int s = getnameinfo((struct sockaddr *) &ip4addr, sizeof(struct sockaddr_in), host, NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV);
+	int s = getnameinfo((struct sockaddr *) &ip4addr,sizeof(struct sockaddr_in),
+	host, NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV);
 	if (s == 0)
 		return ft_strdup(host);
 	else {

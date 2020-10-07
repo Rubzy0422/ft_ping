@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 06:19:44 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/06 22:26:29 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:28:49 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	send_echo(t_env *env)
 	ft_bzero(&pckt, sizeof(pckt)); 
 	pckt.hdr.type = ICMP_ECHO;
 	pckt.hdr.code = 0;
-	env->pid = getpid();
-	pckt.hdr.un.echo.id = env->pid;
+	pckt.hdr.un.echo.id = getpid();
+	env->pid = pckt.hdr.un.echo.id;
 	i = 0;
 	while(i++ < (int)sizeof(pckt.msg)-1) 
 		pckt.msg[i] = i+'0';
@@ -52,7 +52,7 @@ void	send_echo(t_env *env)
 	size = sendto(env->sockfd, &pckt.hdr, sizeof(pckt), 0,
 		(struct sockaddr *)env->addr_con, sizeof(struct sockaddr));
 	if (PING_PKT_SIZE != size)
-		perror("ft_ping: sendmsg");
+		printf("%s: sendmsg: Network is unreachable\n", P_NAME);
 	else
 		env->icmp_sent++;
 }
@@ -75,12 +75,11 @@ void	recieve_echo(t_env *env)
 
 	gettimeofday(&env->time.echo_end, NULL);
 	ret = recvmsg(env->sockfd, &msg, MSG_DONTWAIT);
-	if (ret > 0 && env->icmp_recieved < env->icmp_sent)
+	if (ret > 0)
 	{
 		env->icmp_recieved++;
 		validate_packet(
-			(struct icmphdr *)((void *)iov_base + sizeof(struct ip)),
-			ret, env);
+			(struct icmphdr *)((void *)iov_base + sizeof(struct ip)), ret, env);
 	}
 }
 

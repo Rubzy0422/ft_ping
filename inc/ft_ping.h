@@ -5,10 +5,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include <netdb.h>
-#include <sys/types.h>
 #include <sys/time.h>
-#include <sys/socket.h>
 #include <arpa/inet.h>
 
 #include <netinet/in.h> 
@@ -16,13 +13,21 @@
 #include <fcntl.h> 
 #include <signal.h>
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+
 #include <libft.h>
 
 #define PING_PKT_SIZE 64 
 #define PORT_NO 0
 #define PING_SLEEP_RATE 1000000
 #define RECV_TIMEOUT 1
-#define PROG_NAME "ft_ping"
+#define P_NAME "ft_ping"
+
+#define NI_MAXHOST		1025
+#define NI_MAXSERV		32
+#define NI_NUMERICSERV	2
 
 typedef enum
 {
@@ -54,9 +59,9 @@ typedef struct		s_env
 	struct			sockaddr *addr_con; 
 	int				addrlen; 
 	char			net_buf[NI_MAXHOST];
-	unsigned long	icmp_seqNum;
-	unsigned long	icmp_sent;
-	unsigned long	icmp_recieved;
+	int				icmp_seqNum;
+	int				icmp_sent;
+	int				icmp_recieved;
 	t_time			time;
 	bool			verbose;
 	bool			pingloop;
@@ -80,7 +85,6 @@ void				display_help(void);
 void				stats(t_env *env);
 unsigned short		checksum(void *buffer, int size);
 double 				ft_timediff(struct timeval s, struct timeval e);
-void				ft_freeaddrinfo(struct addrinfo *aihead);
 void				validate_packet(struct icmphdr *hdr2, int bytes,
 					t_env *env);
 void				check_type(struct icmphdr *hdr, t_env *env);
