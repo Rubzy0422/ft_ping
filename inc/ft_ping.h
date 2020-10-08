@@ -87,5 +87,6 @@ unsigned short		checksum(void *buffer, int size);
 double 				ft_timediff(struct timeval s, struct timeval e);
 void				validate_packet(struct icmphdr *hdr2, int bytes,
 					t_env *env);
-void				check_type(struct icmphdr *hdr, t_env *env);
+bool				check_type(struct icmphdr *hdr, t_env *env);
+void				ft_freeaddrinfo(struct addrinfo *head);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:06:58 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/07 15:49:09 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/08 12:44:21 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void *handelerrcode(int errcode, const char *hostname)
 {
 	if (errcode == -2)
-	printf("%s:%s: Name or service not known\n", P_NAME, hostname);
-	// -3 Temporary failure in name resolution
+		printf("%s: %s: Name or service not known\n", P_NAME, hostname);
 	else if (errcode == -3)
-	printf("%s:%s: Temporary failure in name resolution\n", P_NAME, hostname); 
+		printf("%s: %s: Temporary failure in name resolution\n", P_NAME, hostname);
+	else
+		printf("%s: %s: Unknown Error\n", P_NAME, hostname);
 	exit(-1);
 }
 
@@ -30,7 +31,9 @@ char *dns_lookup(const char *host)
 	char addrstr[100];
 	void *ptr;
 
-	ft_bzero(&hints, sizeof (hints));
+	if (!ft_strcmp(host, "::1"))
+		host = "localhost";
+	ft_bzero(&hints, sizeof(hints));
 	hints.ai_flags = 0;
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_RAW;
@@ -43,6 +46,7 @@ char *dns_lookup(const char *host)
 		ptr = &((struct sockaddr_in *) res->ai_addr)->sin_addr;
 	 inet_ntop (res->ai_family, ptr, addrstr, NI_MAXHOST);
 	g_env.addr_con = res->ai_addr;
+	ft_freeaddrinfo(res);
 	return ft_strdup(addrstr);
 }
 

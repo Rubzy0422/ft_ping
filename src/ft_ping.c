@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 22:32:54 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/07 08:47:59 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/08 12:29:38 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void		ping_loop(t_env *env)
 		{
 			lst_time = s_time.tv_sec;
 			send_echo(env);
-			env->icmp_seqNum++;
 		}
 		recieve_echo(env);
 	}

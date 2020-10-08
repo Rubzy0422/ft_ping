@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:07:06 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/07 14:40:29 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/08 12:32:51 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		stats(t_env *env)
 	printf("\n--- %s ping statistics ---\n",env->hostname);
 	printf("%u packets transmitted, %u received, ",
 	env->icmp_seqNum, env->icmp_recieved);
-	printf("%.2f%% packet loss, time %f ms\n", num, 
+	printf("%.2f%% packet loss, time %.3f ms\n", num, 
 	ft_timediff(env->time.program_start, env->time.program_end));
 	free(env->ip_addr);
 	free(env->reverse_hostname);
