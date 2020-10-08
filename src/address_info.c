@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:06:58 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/08 12:44:21 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/08 13:00:09 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char *dns_lookup(const char *host)
 		ptr = &((struct sockaddr_in *) res->ai_addr)->sin_addr;
 	 inet_ntop (res->ai_family, ptr, addrstr, NI_MAXHOST);
 	g_env.addr_con = res->ai_addr;
-	ft_freeaddrinfo(res);
+	g_env.res = res;
 	return ft_strdup(addrstr);
 }
 

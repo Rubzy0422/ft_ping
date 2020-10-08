@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 00:37:59 by alex              #+#    #+#             */
-/*   Updated: 2020/10/08 12:52:49 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/08 13:16:01 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ bool	check_type(struct icmphdr *hdr, t_env *env)
 	{
 		if (env->verbose)
 			{
-				if (hdr->type != ICMP_ECHOREPLY && ft_strcmp(env->ip_addr, "127.0.0.1"))
+				if (hdr->type != ICMP_ECHOREPLY && 
+				ft_strcmp(env->ip_addr, "127.0.0.1"))
 				{
 					printf("Bad icmp type: %d\n", hdr->type);
 					return false;

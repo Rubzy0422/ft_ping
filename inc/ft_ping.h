@@ -68,6 +68,7 @@ typedef struct		s_env
 	ping_pkt		pkt;
 	unsigned int	ttl;
 	pid_t			pid;
+	struct addrinfo	*res;
 }					t_env;
 
 t_env 				g_env;

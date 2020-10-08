@@ -6,7 +6,7 @@
 /*   By: rcoetzer <rcoetzer@student.wethinkcode.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 06:19:44 by rcoetzer          #+#    #+#             */
-/*   Updated: 2020/10/08 12:50:45 by rcoetzer         ###   ########.fr       */
+/*   Updated: 2020/10/08 13:13:50 by rcoetzer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void	send_echo(t_env *env)
 		(struct sockaddr *)env->addr_con, sizeof(struct sockaddr));
 	if (PING_PKT_SIZE != size)
 		printf("%s: sendmsg: Network is unreachable\n", P_NAME);
-	else
-		env->icmp_seqNum++;
+	env->icmp_seqNum++;
 }
 
 void	recieve_echo(t_env *env)
